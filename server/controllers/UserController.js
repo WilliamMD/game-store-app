@@ -16,10 +16,9 @@ class UserController {
     
         static async registerUsers(req, res) {
             try {
-              const { name, email,password,birthdate,gender,avatar,type } = req.body;
-              let hashPwd = encrypter(password)
+              const { name, email,password,birthdate,gender,avatar,type } = req.body
               let user = await User.create({
-                name, email, password:hashPwd, birthdate, gender, avatar, type
+                name, email, password, birthdate, gender, avatar, type
               });
               res.status(201).json(user);
             } catch (err) {
@@ -34,7 +33,7 @@ class UserController {
                     where : {email}
                 })
                 if(user){
-                    if(decrypter(password,user.password)){
+                    if(decrypter(password,user.salt)){
                         res.status(200).json(user)
                     } else {
                         res.status(403).json({

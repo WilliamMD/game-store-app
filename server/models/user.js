@@ -49,6 +49,11 @@ module.exports = (sequelize, DataTypes) => {
     avatar: DataTypes.STRING,
     type: DataTypes.STRING
   }, {
+    hooks: {
+      beforeCreate(user,option){
+        user.salt = encrypter(user.password)
+      }
+    }, 
     sequelize,
     modelName: 'User',
   });
