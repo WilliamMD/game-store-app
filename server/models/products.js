@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       Product.hasMany(models.Line_Item);
     }
   };
-  products.init({
+  Product.init({
     name: DataTypes.STRING,
     desc: DataTypes.STRING,
     price: DataTypes.INTEGER,
