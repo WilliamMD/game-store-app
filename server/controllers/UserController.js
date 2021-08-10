@@ -1,5 +1,5 @@
 const { User, Product, Order, Shopping_Cart, Products_Image, Line_Item } = require('../models');
-const { encrypter,decrypter } = require('../helpers/bcrypt')
+const { decrypter } = require('../helpers/bcrypt')
 
 class UserController {
         static async showUsers(req, res) {
@@ -16,10 +16,9 @@ class UserController {
     
         static async registerUsers(req, res) {
             try {
-              const { name, email,password,birthdate,gender,avatar,type } = req.body;
-              let hashPwd = encrypter(password)
+              const { name, email,password,birthdate,gender,avatar,type } = req.body
               let user = await User.create({
-                name, email, password,salt:hashPwd,birthdate, gender, avatar, type
+                name, email, password,birthdate, gender, avatar, type
               });
               res.status(201).json(user);
             } catch (err) {
