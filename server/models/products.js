@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       Product.hasMany(models.Line_Item);
     }
   };
-  products.init({
+  Product.init({
     name: DataTypes.STRING,
     desc: DataTypes.STRING,
     price: DataTypes.INTEGER,
@@ -30,7 +30,17 @@ module.exports = (sequelize, DataTypes) => {
     rating: DataTypes.INTEGER,
     views: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER
-  }, {
+  },
+  {
+    hooks: {
+      beforeCreate(product,option){
+        product.stock= 0,
+        product.weight= 0,
+        product.total_sold= 0,
+        product.rating = 0,
+        product.views = 0
+      }
+    },
     sequelize,
     modelName: 'Product',
   });
