@@ -21,9 +21,9 @@ class ProductController {
 
     static async addProducts(req, res) {
         try {
-          const { name, desc, price, stock, expirate_day, weight, category, brand, condition,total_sold,rating,views,UserId } = req.body;
+          const { name, desc, price, stock, expire_date, weight, category, brand, condition,total_sold,rating,views,UserId } = req.body;
           let product = await Product.create({
-            name, desc, price, stock, expirate_day, weight, category, brand, condition,total_sold,rating,views,UserId
+            name, desc, price, stock, expire_date, weight, category, brand, condition,total_sold,rating,views,UserId
           });
           res.status(201).json (product);
         } catch (err) {
@@ -46,10 +46,10 @@ class ProductController {
     static async updateProducts(req, res) {
     try {
       const id = +req.params.id;
-      const { name, desc, price, stock, expirate_day, weight, category, brand, condition,total_sold,rating,views,UserId } = req.body;
+      const { name, desc, price, stock, expire_date, weight, category, brand, condition,total_sold,rating,views,UserId } = req.body;
       let product = await Product.update(
         {
-            name, desc, price, stock, expirate_day, weight, category, brand, condition,total_sold,rating,views,UserId
+            name, desc, price, stock, expire_date, weight, category, brand, condition,total_sold,rating,views,UserId
         },
         {
           where: { id },
