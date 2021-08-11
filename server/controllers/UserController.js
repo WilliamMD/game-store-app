@@ -1,5 +1,6 @@
 const { User, Product, Order, Shopping_Cart, Products_Image, Line_Item } = require('../models');
 const { decrypter } = require('../helpers/bcrypt')
+const {tokenGenerator} = require('../helpers/jwt')
 
 class UserController {
         static async showUsers(req, res) {
@@ -34,7 +35,11 @@ class UserController {
                 })
                 if(user){
                     if(decrypter(password,user.salt)){
-                        res.status(200).json(user)
+                      res.status(200).json(user)
+                      // let access_token = tokenGenerator(user)
+                      //   res.status(200).json({
+                      //     access_token
+                      //   })
                     } else {
                         res.status(403).json({
                             message : "Invalid Password"

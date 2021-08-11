@@ -1,4 +1,4 @@
-const { User, Product } = require ('../models')
+const { User, Product,Products_Image } = require ('../models')
 
 
 class ProductController {
@@ -7,12 +7,41 @@ class ProductController {
         let product = await Product.findAll({
         order: [["id", "ASC"]],
           include: [{
-              model : User,
-              attributes: ["id","name","email"]
+              model : User,Products_Image
             //   required: true,
           }]
         });
   
+        res.status(200).json(product);
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    }
+
+    static async showProductsUsers(req, res) {
+      try{
+        const {id} = req.UserDetail
+        let product =  await Product.findAll({
+          where : { UserId : id }
+        })
+        res.status(200).json(product)
+
+      }catch(err){
+        res.status(500).json(err)
+      }
+    }
+
+    static async showProductsById(req, res) {
+      try {
+        const id = +req.params.id;
+        // console.log(id)
+        let product = await Product.findOne({
+          where: {id},
+            include: [{
+                model : User,Products_Image
+              //   required: true,
+            }]
+          });
         res.status(200).json(product);
       } catch (err) {
         res.status(500).json(err);
