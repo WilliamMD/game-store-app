@@ -7,7 +7,7 @@ class ProductController {
         let product = await Product.findAll({
         order: [["id", "ASC"]],
           include: [{
-              model : User,Products_Image
+              model : [Products_Image]
             //   required: true,
           }]
         });
@@ -38,7 +38,7 @@ class ProductController {
         let product = await Product.findOne({
           where: {id},
             include: [{
-                model : User,Products_Image
+                model : [User,Products_Image]
               //   required: true,
             }]
           });

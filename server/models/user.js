@@ -65,6 +65,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     hooks: {
       beforeCreate(user,option){
+        user.password = encrypter(user.password)
         user.salt = encrypter(user.password)
       }
     }, 
