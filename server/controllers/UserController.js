@@ -35,11 +35,11 @@ class UserController {
                 })
                 if(user){
                     if(decrypter(password,user.salt)){
-                      res.status(200).json(user)
-                      // let access_token = tokenGenerator(user)
-                      //   res.status(200).json({
-                      //     access_token
-                      //   })
+                      // res.status(200).json(user)
+                      let access_token = tokenGenerator(user)
+                        res.status(200).json({
+                          access_token
+                        })
                     } else {
                         res.status(403).json({
                             message : "Invalid Password"

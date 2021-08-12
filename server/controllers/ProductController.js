@@ -75,10 +75,10 @@ class ProductController {
     static async updateProducts(req, res) {
     try {
       const id = +req.params.id;
-      const { name, desc, price, stock, expire_date, weight, category, brand, condition,total_sold,rating,views,UserId } = req.body;
+      const { name, desc, price, stock, expire_date, weight, category, brand, condition } = req.body;
       let product = await Product.update(
         {
-            name, desc, price, stock, expire_date, weight, category, brand, condition,total_sold,rating,views,UserId
+            name, desc, price, stock, expire_date, weight, category, brand, condition
         },
         {
           where: { id },
@@ -87,6 +87,38 @@ class ProductController {
       res.status(200).json (product);
     } catch (err) {
       res.status(500).json(err);
+    }
+  }
+   static async updateViews(req, res) {
+     try{
+       const id = +req.params.id;
+       let product = await Product.increment(
+         {
+           views : +1,
+          },
+          {
+            where: { id },
+          }
+       )
+       res.status(200).json(product)
+     }catch (err) {
+       res.status(500).json(err)
+     }
+   }
+   static async updateSold(req, res) {
+    try{
+      const id = +req.params.id;
+      let product = await Product.increment(
+        {
+          total_sold : +1,
+         },
+         {
+           where: { id },
+         }
+      )
+      res.status(200).json(product)
+    }catch (err) {
+      res.status(500).json(err)
     }
   }
 
