@@ -6,10 +6,8 @@ class ProductController {
       try {
         let product = await Product.findAll({
         order: [["id", "ASC"]],
-          include: [{
-              model : [Products_Image]
-            //   required: true,
-          }]
+          include: 
+               [Products_Image] 
         });
   
         res.status(200).json(product);
@@ -37,10 +35,8 @@ class ProductController {
         // console.log(id)
         let product = await Product.findOne({
           where: {id},
-            include: [{
-                model : [User,Products_Image]
-              //   required: true,
-            }]
+            include: 
+                [User,Products_Image] 
           });
         res.status(200).json(product);
       } catch (err) {
