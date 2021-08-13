@@ -1,9 +1,10 @@
 const OrderRouter = require('express').Router();
 const OrderController = require('../controllers/OrderController');
 
-OrderRouter.get('/',ItemController.showOrders)
-OrderRouter.post('/add',ItemController.addOrders)
-OrderRouter.delete('/delete/:id',ItemController.deleteOrders)
-OrderRouter.put('/update/:id',ItemController.updateOrders)
+OrderRouter.get('/',OrderController.showOrders)
+OrderRouter.get('/:id',OrderController.showOrdersById)
+OrderRouter.post('/add',OrderController.addOrders)
+OrderRouter.delete('/delete/:id',OrderController.deleteOrders)
+OrderRouter.put('/update/:id',OrderController.updateOrders)
 
 module.exports = OrderRouter;

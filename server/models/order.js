@@ -29,6 +29,33 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.STRING,
     UserId: DataTypes.INTEGER
   }, {
+    hooks:{
+      beforeCreate(order,options){
+        let qty = +order.total_qty
+          if(qty>2){
+            order.discount = (+order.subtotal*5/100)
+          }else{
+            order.discount=0;
+          }
+            
+          order.tax = ((+order.subtotal)-(+order.discount))*10/100;
+          order.total_due =(+order.subtotal)-(+order.discount)+(+order.tax)
+          order.payt_trx_number=`${order.UserId}000-1`
+          order.status='Open'
+      },
+      beforeUpdate(order,options){
+        let qty = +order.total_qty
+        if(qty>2){
+          order.discount = (+order.subtotal*5/100)
+        }else{
+          order.discount=0;
+        }
+      
+        order.tax = ((+order.subtotal)-(+order.discount))*10/100;
+        order.total_due =(+order.subtotal)-(+order.discount)+(+order.tax)
+        order.payt_trx_number=`${order.UserId}-0000`
+      }
+    },
     sequelize,
     modelName: 'Order',
   });

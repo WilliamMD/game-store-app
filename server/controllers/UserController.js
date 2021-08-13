@@ -18,10 +18,20 @@ class UserController {
         static async registerUsers(req, res) {
             try {
               const { name, email,password,birthdate,gender,avatar,type } = req.body
-              let user = await User.create({
-                name, email, password, birthdate, gender, avatar, type
-              });
-              res.status(201).json(user);
+              let findEmail = await User.findOne({
+                where : {email}
+              })
+              if(findEmail){
+                res.status(403).json({
+                  message : "Email already Used"
+                })
+              }else{
+                let user_token = await User.create({
+                  name, email, password, birthdate, gender, avatar, type
+                });
+                let access_token = tokenGenerator(user_token)
+                res.status(201).json(access_token);
+              }  
             } catch (err) {
               res.status(500).json(err);
             }
