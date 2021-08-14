@@ -46,7 +46,8 @@ class ProductController {
 
     static async addProducts(req, res) {
         try {
-          const { name, desc, price, stock, expire_date, weight, category, brand, condition,total_sold,rating,views,UserId } = req.body;
+          const { name, desc, price, expire_date, weight, category, brand, condition} = req.body;
+          const UserId = req.UserDetail.id
           let product = await Product.create({
             name, desc, price, stock, expire_date, weight, category, brand, condition,total_sold,rating,views,UserId
           });

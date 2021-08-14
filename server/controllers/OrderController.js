@@ -29,7 +29,8 @@ class OrderController {
 
     static async addOrders(req, res) {
         try {
-        const {name,subtotal,total_qty,city,address,UserId } = req.body; //subtotal harga total semua barang
+        const {name,subtotal,total_qty,city,address} = req.body; //subtotal harga total semua barang
+        const UserId = req.UserDetail.id
         let order = await Order.create({
         name, created_on:new Date(), subtotal, total_qty, city, address, UserId
         });

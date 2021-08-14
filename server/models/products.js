@@ -35,7 +35,6 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       beforeCreate(product,option){
         product.stock= 1,
-        product.weight= 0,
         product.total_sold= 0,
         product.rating = 0,
         product.views = 0
