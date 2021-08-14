@@ -17,7 +17,8 @@ class UserController {
     
         static async registerUsers(req, res) {
             try {
-              const { name, email,password,birthdate,gender,avatar,type } = req.body
+              let avatar = req.file.path;
+              const { name, email,password,birthdate,gender,type } = req.body
               let findEmail = await User.findOne({
                 where : {email}
               })
@@ -80,7 +81,8 @@ class UserController {
         static async updateUsers(req, res) {
         try {
           const id = +req.params.id;
-          const { name, email,password,birthdate,gender,avatar,type } = req.body;
+          let avatar = req.file.path;
+          const { name, email,password,birthdate,gender,type } = req.body;
           let users = await User.update(
             {
                 name, email,password,birthdate,gender,avatar,type
@@ -95,6 +97,23 @@ class UserController {
           res.status(500).json(err);
         }
       }
+
+
+      //COBA PATH MULTER
+      static async multer(req,res){
+        try{
+            let avatar = req.file.path;
+            let id = +req.params.id;
+            let user = await User.update({
+                avatar
+            },{
+                where:{id}
+            })
+            res.status(200).json(user)
+        }catch(err){
+            res.status(500).json(err)
+        }
+    }
     
     
 
