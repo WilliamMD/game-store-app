@@ -5,8 +5,8 @@ const {authentication} = require('../middlewares/auth')
 LineItemRouter.get('/',LineItemsController.showLineItems)
 LineItemRouter.get('/auth',authentication,LineItemsController.showItemsUsers)
 LineItemRouter.get('/:id',LineItemsController.showItemsById)
-// LineItemRouter.post('/add',authentication,LineItemsController.addProducts)
-// LineItemRouter.delete('/delete/:id',authentication,LineItemsController.deleteProducts)
-// LineItemRouter.put('/update/:id',authentication,LineItemsController.updateProducts)
+LineItemRouter.post('/add',authentication,LineItemsController.addLineItem)
+LineItemRouter.delete('/delete/:id',authentication,LineItemsController.deleteLineItem)
+LineItemRouter.put('/update/:id',authentication,LineItemsController.updateLineItem)
 
 module.exports = LineItemRouter;

@@ -85,7 +85,7 @@ class ProductController {
       res.status(500).json(err);
     }
   }
-   static async updateViews(req, res) {
+  static async updateViews(req, res) {
      try{
        const id = +req.params.id;
        let product = await Product.increment(
