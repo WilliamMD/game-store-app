@@ -53,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
       
         order.tax = ((+order.subtotal)-(+order.discount))*10/100;
         order.total_due =(+order.subtotal)-(+order.discount)+(+order.tax)
-        order.payt_trx_number=`${order.UserId}-0000`
+        order.payt_trx_number=`${order.UserId}000-1`
       }
     },
     sequelize,

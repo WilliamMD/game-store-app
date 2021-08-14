@@ -70,6 +70,23 @@ class OrderController {
           res.status(500).json(err);
         }
       }
+    static async updateStatus(req, res) {
+        try {
+          const id = +req.params.id;
+          const { status } = req.body;
+          let order = await Order.update(
+            {status},
+            {
+              where: { id },
+            }
+          );
+          res.status(200).json ({
+              message: "Status Has Been Update"
+          });
+        } catch (err) {
+          res.status(500).json(err);
+        }
+      }
 
 }
 
