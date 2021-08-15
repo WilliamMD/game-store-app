@@ -8,7 +8,7 @@ ProductRouter.get('/auth',authentication,ProductController.showProductsUsers)
 ProductRouter.get('/:id',ProductController.showProductsById)
 ProductRouter.post('/add',authentication,ProductController.addProducts)
 ProductRouter.delete('/delete/:id',authentication,authorization,ProductController.deleteProducts)
-ProductRouter.put('/update/:id',authentication,ProductController.updateProducts)
+ProductRouter.put('/update/:id',authentication,authorization,ProductController.updateProducts)
 
 ProductRouter.put('/updateViews/:id',ProductController.updateViews)
 ProductRouter.put('/updateSold/:id',ProductController.updateSold)

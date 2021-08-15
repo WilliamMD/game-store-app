@@ -31,7 +31,7 @@ class UserController {
                   name, email, password, birthdate, gender, avatar, type
                 });
                 let access_token = tokenGenerator(user_token)
-                res.status(201).json(access_token);
+                res.status(201).json({access_token});
               }  
             } catch (err) {
               res.status(500).json(err);

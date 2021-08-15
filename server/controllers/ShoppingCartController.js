@@ -40,10 +40,10 @@ class ShoppingCartController {
 
   static async addCarts(req, res) {
     try {
-      const { status, UserId } = req.body;
+      const UserId = req.UserDetail.id
       let cart = await Shopping_Cart.create({
         created_on: new Date(),
-        status,
+        status: 'Open',
         UserId,
       });
       res.status(201).json(cart);
