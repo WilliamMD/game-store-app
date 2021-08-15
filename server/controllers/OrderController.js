@@ -26,6 +26,18 @@ class OrderController {
         res.status(500).json(err)
         }
     }
+    static async showOrdersUsers(req, res) {
+      try{
+        const {id} = req.UserDetail
+        let order =  await Order.findAll({
+          where : { UserId : id }
+        })
+        res.status(200).json(order)
+
+      }catch(err){
+        res.status(500).json(err)
+      }
+    }
 
     static async addOrders(req, res) {
         try {
