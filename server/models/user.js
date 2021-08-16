@@ -45,12 +45,27 @@ module.exports = (sequelize, DataTypes) => {
     },
     salt: DataTypes.STRING,
     birthdate: DataTypes.DATE,
-    gender: DataTypes.STRING,
-    avatar: DataTypes.STRING,
+    gender: {
+      type : DataTypes.STRING,
+      validate:{
+        notEmpty : {
+          message : "TIDAK BOLEH KOSONG"
+        }
+      }
+    },
+    avatar: {
+      type : DataTypes.STRING,
+      validate:{
+        notEmpty : {
+          message : "TIDAK BOLEH KOSONG"
+        }
+      }
+    },
     type: DataTypes.STRING
   }, {
     hooks: {
       beforeCreate(user,option){
+        user.password = encrypter(user.password)
         user.salt = encrypter(user.password)
       }
     }, 

@@ -1,4 +1,4 @@
-const { User, Product } = require ('../models')
+const { User, Product,Products_Image } = require ('../models')
 
 
 class ProductController {
@@ -6,11 +6,8 @@ class ProductController {
       try {
         let product = await Product.findAll({
         order: [["id", "ASC"]],
-          include: [{
-              model : User,
-              attributes: ["id","name","email"]
-            //   required: true,
-          }]
+          include: 
+               [Products_Image] 
         });
   
         res.status(200).json(product);
@@ -19,11 +16,40 @@ class ProductController {
       }
     }
 
+    static async showProductsUsers(req, res) {
+      try{
+        const {id} = req.UserDetail
+        let product =  await Product.findAll({
+          where : { UserId : id }
+        })
+        res.status(200).json(product)
+
+      }catch(err){
+        res.status(500).json(err)
+      }
+    }
+
+    static async showProductsById(req, res) {
+      try {
+        const id = +req.params.id;
+        // console.log(id)
+        let product = await Product.findOne({
+          where: {id},
+            include: 
+                [User,Products_Image] 
+          });
+        res.status(200).json(product);
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    }
+
     static async addProducts(req, res) {
         try {
-          const { name, desc, price, stock, expirate_day, weight, category, brand, condition,total_sold,rating,views,UserId } = req.body;
+          const { name, desc, price, expire_date, weight, category, brand, condition} = req.body;
+          const UserId = req.UserDetail.id
           let product = await Product.create({
-            name, desc, price, stock, expirate_day, weight, category, brand, condition,total_sold,rating,views,UserId
+            name, desc, price, expire_date, weight, category, brand, condition,UserId
           });
           res.status(201).json (product);
         } catch (err) {
@@ -46,10 +72,10 @@ class ProductController {
     static async updateProducts(req, res) {
     try {
       const id = +req.params.id;
-      const { name, desc, price, stock, expirate_day, weight, category, brand, condition,total_sold,rating,views,UserId } = req.body;
+      const { name, desc, price, stock, expire_date, weight, category, brand, condition } = req.body;
       let product = await Product.update(
         {
-            name, desc, price, stock, expirate_day, weight, category, brand, condition,total_sold,rating,views,UserId
+            name, desc, price, stock, expire_date, weight, category, brand, condition
         },
         {
           where: { id },
@@ -58,6 +84,38 @@ class ProductController {
       res.status(200).json (product);
     } catch (err) {
       res.status(500).json(err);
+    }
+  }
+  static async updateViews(req, res) {
+     try{
+       const id = +req.params.id;
+       let product = await Product.increment(
+         {
+           views : +1,
+          },
+          {
+            where: { id },
+          }
+       )
+       res.status(200).json(product)
+     }catch (err) {
+       res.status(500).json(err)
+     }
+   }
+   static async updateSold(req, res) {
+    try{
+      const id = +req.params.id;
+      let product = await Product.increment(
+        {
+          total_sold : +1,
+         },
+         {
+           where: { id },
+         }
+      )
+      res.status(200).json(product)
+    }catch (err) {
+      res.status(500).json(err)
     }
   }
 
