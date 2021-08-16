@@ -17,11 +17,11 @@ module.exports = {
       ProductId: {
         type: Sequelize.INTEGER
       },
-      Shopping_CartId: {
+      ShoppingCartId: {
         type: Sequelize.INTEGER
       },
-      order_name: {
-        type: Sequelize.STRING
+      OrderId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

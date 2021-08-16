@@ -1,16 +1,13 @@
-const {Line_Item,Shopping_Cart} = require('../models')
+const {Line_Item,Shopping_Cart,Order} = require('../models')
 
 class LineItemController {
     static async showLineItems(req, res) {
         try {
-          let item = await Line_Item.findAll({
-            order: [["id", "ASC"]],
-            include: 
-               [Shopping_Cart] 
+          let lineitems = await Line_Item.findAll({
           });
-          res.status(200).json(item);
+          res.status(200).json(lineitems);
         } catch (err) {
-          res.status(500).json(err);
+          res.status(404).json(err);
         }
       }
 
@@ -29,8 +26,7 @@ class LineItemController {
 
       static async showItemsById(req, res) {
         try {
-          const id = +req.params.id;
-          // console.log(id)
+          const id = +req.params.id
           let product = await Line_Item.findByPk(id);
           res.status(200).json(product);
         } catch (err) {
