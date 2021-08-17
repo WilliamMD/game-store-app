@@ -13,33 +13,28 @@ class ProductImageController {
   }
   static async uploadImages(req, res) {
     try {
-      const { primary, ProductId } = req.body;
+      const ProductId = +req.params.id;
       let filename = req.file.filename;
       let filesize = req.file.size;
       let filetype = req.file.mimetype;
-      let upload = await Products_Image.create({
-        filename,
-        filesize,
-        filetype,
-        primary,
-        ProductId,
-      });
-      res.status(201).json(upload);
+      let img = await Products_Image.create(
+        { filename, filesize, filetype, primary:true, ProductId }
+      );
+      res.status(200).json(img);
     } catch (err) {
-      res.status(500).json(err);
+      res.status(403).json(err);
     }
   }
   static async updateImages(req, res) {
     try {
-      const id = +req.params.id;
-      const { primary, ProductId } = req.body;
+      const ProductId = +req.params.id
       let filename = req.file.filename;
       let filesize = req.file.size;
       let filetype = req.file.mimetype;
       let img = await Products_Image.update(
-        { filename, filesize, filetype, primary, ProductId },
+        { filename, filesize, filetype },
         {
-          where: { id },
+          where: { ProductId },
         }
       );
       res.status(200).json({
