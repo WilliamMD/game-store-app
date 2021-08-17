@@ -14,6 +14,16 @@ class UserController {
             res.status(500).json(err);
           }
         }
+
+        static async showUsersById(req, res) {
+          try {
+            const id = req.UserDetail.id
+            let userid = await User.findByPk(id);
+            res.status(200).json(userid);
+          } catch (err) {
+            res.status(500).json(err);
+          }
+        }
     
         static async registerUsers(req, res) {
             try {
@@ -80,7 +90,7 @@ class UserController {
         
         static async updateUsers(req, res) {
         try {
-          const id = +req.params.id;
+          const id = req.UserDetail.id;
           let avatar = req.file.path;
           const { name, email,password,birthdate,gender,type } = req.body;
           let users = await User.update(
