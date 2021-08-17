@@ -27,7 +27,7 @@ class UserController {
     
         static async registerUsers(req, res) {
             try {
-              let avatar = req.file.path;
+              let avatar = req.file.path
               const { name, email,password,birthdate,gender,type } = req.body
               let findEmail = await User.findOne({
                 where : {email}
