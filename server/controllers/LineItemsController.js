@@ -60,10 +60,10 @@ class LineItemController {
       static async updateLineItem(req, res) {
             try {
               const id = +req.params.id;
-              const { qty, status, ProductId,Shopping_CartId, order_name} = req.body;
+              const { qty, status, ProductId,Shopping_CartId, OrderId} = req.body;
               let lineitem = await Line_Item.update(
                 {
-                    qty, status, ProductId,Shopping_CartId, order_name
+                    qty, status, ProductId,Shopping_CartId, OrderId
                 },
                 {
                   where: { id },
