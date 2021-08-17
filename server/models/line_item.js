@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.STRING,
     ProductId: DataTypes.INTEGER,
     ShoppingCartId: DataTypes.INTEGER,
-    OrderId: DataTypes.STRING
+    OrderId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Line_Item',

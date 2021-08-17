@@ -36,7 +36,7 @@ class LineItemController {
 
       static async addLineItem(req, res) {
         try {
-          const { qty, status, ProductId } = req.body;
+          const { qty, status,ProductId, ShoppingCartId, OrderId} = req.body;
           let lineitem = await Line_Item.create({
             qty, status, ProductId,ShoppingCartId, OrderId
           });
