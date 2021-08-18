@@ -9,6 +9,12 @@ app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 app.use('/tmp/my-uploads',express.static(path.join(__dirname,'/tmp/my-uploads')))
 
+//SWAGGER
+const swaggerUi = require('swagger-ui-express')
+const apiDocumentation = require('./api-doc.json')
+app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(apiDocumentation))
+//SWAGGER
+
 const routes = require('./routes');
 app.use(routes);
 

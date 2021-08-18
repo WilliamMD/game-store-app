@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const swaggerUi = require('swagger-ui-express')
+const apiDocumentation = require('../api-doc.json')
 
 
 router.get('/',(req, res) =>{
@@ -6,6 +8,8 @@ router.get('/',(req, res) =>{
         message : "GAME APP STORE"
     })
 })
+
+router.get(('/api-docs',swaggerUi.serve,swaggerUi.setup(apiDocumentation)))
 
 const UsersRoutes = require('./users')
 const LineItemsRoutes = require('./lineitems')
