@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { DropdownButton, Dropdown } from 'react-bootstrap'
 
 function Navbar({login, userLogin}) {
     const history = useHistory();
@@ -65,13 +66,38 @@ function Navbar({login, userLogin}) {
                                 }
                             </li>
                         </ul>
-                        {
+                        <DropdownButton title="Account" variant="dark" menuVariant="dark">
+                            {
+                                login ?
+                                    <>
+                                        <Dropdown.Item style={{ padding:"0px", margin:"0px" }}>
+                                            <Link className="nav-link text-light" to="/user/profile">Profile</Link>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item style={{ padding:"0px", margin:"0px" }}>
+                                            <button className="btn nav-link text-light"
+                                            onClick={e => logoutHandler(e)}>Logout</button>
+                                        </Dropdown.Item>
+                                    </>
+                                    
+                                    :
+                                    <>
+                                        <Dropdown.Item style={{ padding:"0px", margin:"0px" }}>
+                                            <Link className="nav-link text-light" to="/users/register">Register</Link>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item style={{ padding:"0px", margin:"0px" }}>
+                                            <Link className="nav-link text-light" to="/users/login">Log In</Link>
+                                        </Dropdown.Item>
+                                    </>
+                            }
+                        </DropdownButton>
+                        
+                        {/* {
                             login ?
                             <button className="nav-link text-dark button btn btn-danger"
                             onClick={e => logoutHandler(e)}>Logout</button>
                             :
                             <Link className="nav-link text-dark button btn btn-info" to="/users/login">Log In</Link>
-                        }
+                        } */}
                     </div>
                 </div>
             </nav>

@@ -20,10 +20,10 @@ function CardProduct(props) {
                     <img src=
                         {
                             Products_Images.map(image => {
-                                return image.filename
+                                return `http://localhost:3000/tmp/my-uploads/${image.filename}`
                             })
                         } 
-                    className="card-img-top" alt="https://via.placeholder.com/150"/>
+                    className="card-img-top" alt="..."/>
                 
                 <div className="card-body">
                     <h5 className="card-title">{name}</h5>

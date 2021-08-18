@@ -13,6 +13,7 @@ import {
   ProductAdd, 
   ProductEdit,
   LineItem,
+  UserProfile,
   NotFound 
 } from './pages'
 
@@ -61,6 +62,9 @@ function App() {
             </Route>
             <Route exact path ="/products/details/:id">
               <ProductDetails/>
+            </Route>
+            <Route exact path ="/user/profile/">
+              <UserProfile/>
             </Route>
             <Route>
               <NotFound/>

@@ -7,6 +7,7 @@ import ProductDetails from './ProductDetails';
 import ProductAdd from './ProductAdd';
 import ProductEdit from './ProductEdit';
 import LineItem from './LineItem';
+import UserProfile from './UserProfile';
 import NotFound from './NotFound';
 
 export {
@@ -19,5 +20,6 @@ export {
     ProductAdd,
     ProductEdit,
     LineItem,
+    UserProfile,
     NotFound
 }
