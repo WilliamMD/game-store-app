@@ -16,7 +16,7 @@ app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(apiDocumentation))
 //SWAGGER
 
 const routes = require('./routes');
-app.use(routes);
+app.use(routes)
 
 app.listen(PORT, () => {
     console.log('Listening on port : ', PORT);
