@@ -1,5 +1,5 @@
 API DOCUMENTATION
 
-Use : 
+1 . Launch Localhost Servers 3000 (servers)
 
-http://localhost:3000/api-docs/
+2 . Use : "http://localhost:3000/api-docs/" fot launch REST API 
