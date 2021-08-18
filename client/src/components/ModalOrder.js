@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import "./ModalOrder.css";
+import "./Modal.css";
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -19,8 +19,8 @@ function ModalOrder({ setOpenModal, productName, productId, productPrice, produc
 
     const orderHandler = async (e) => {
         e.preventDefault();
-        addCart();
         console.log(order);
+        addCart();
         addOrder();
         updateSold();
         addLineItem();
@@ -88,16 +88,21 @@ function ModalOrder({ setOpenModal, productName, productId, productPrice, produc
         }
     }
 
-
     const addLineItem = async () => {
         try {
+            const qty = order.total_qty;
+            const ProductId = productId;
+            const ShoppingCartId = 0;
+            const OrderId = 0;
+
             const access_token = localStorage.getItem('access_token')
             await axios({
                 method:'POST',
                 url: `${URL}/line_items/add/`,
                 headers: {
                     access_token
-                }
+                },
+                data: qty, ProductId, ShoppingCartId, OrderId
             });
             Swal.fire(
                 'Success!',

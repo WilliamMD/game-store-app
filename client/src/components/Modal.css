@@ -75,3 +75,11 @@
 #cancelBtn {
   background-color: crimson;
 }
+
+.wrap {
+  white-space: nowrap
+}
+
+.left {
+  text-align: left;
+}

@@ -20,26 +20,35 @@ function UserRegister({userLogin, getToken}) {
     const submitHandler = (e) => {
         e.preventDefault();
 
-        const newUser = user;
-
-        console.log(user);
-
-        registerUser(newUser);
+        registerUser();
     }
 
-    const registerUser = async (newUser) => {
+    const registerUser = async () => {
         try {
-            const { name, email, password, birthdate, gender, avatar, type } = newUser;
+            let newUser = new FormData();
+
+            newUser.append("name", user.name);
+            newUser.append("email", user.email);
+            newUser.append("password", user.password);
+            newUser.append("birthdate", user.birthdate);
+            newUser.append("gender", user.gender);
+            newUser.append("avatar", user.avatar);
+            newUser.append("type", user.type);
+
             let result = await axios ({
                 method: 'POST',
                 url: `${URL}/users/register`,
-                data: { name, email, password, birthdate, gender, avatar, type }
+                data: newUser,
+                header: {
+                    "Content-Type": "multipart/form-data"
+                }
             });
+
             const access_token = result.data["access_token"]
             getToken(access_token);
             userLogin(true);
             Swal.fire(
-                `Welcome ${name}!`,
+                `Welcome ${user.name}!`,
                 'You are now registered!',
                 'success'
             );
@@ -102,7 +111,7 @@ function UserRegister({userLogin, getToken}) {
                     <div className="row mb-3">
                         <label className="text-light col-sm-2 col-form-label">Avatar: </label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control" id="avatar" onChange={(e) => setUser({...user, avatar: e.target.value})}/>
+                        <input type="file" className="form-control" id="avatar" name="avatar" onChange={(e) => setUser({...user, avatar: e.target.files[0]})} accept="image/*"/>
                         </div>
                     </div>
                     <div className="row mb-3">

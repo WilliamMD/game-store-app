@@ -32,27 +32,68 @@ function ProductDetails() {
     const submitHandler = (e) => {
         console.log(productImages);
         e.preventDefault();
-        editProductImage();
+
+        product.Products_Images.length > 0 ?
+            editProductImage()
+            :
+            uploadImage()
     }
 
     const editProductImage = async () => {
         try {
             const access_token = localStorage.getItem('access_token')
+            let img = new FormData();
+
+            img.append("image", productImages);
+
+            console.log(img)
             
             await axios({
                 method: 'PUT',
                 url: `${URL}/productimages/update/${id}`,
                 headers: {
-                    access_token
+                    access_token,
+                    "Content-Type": "multipart/form-data"
                 },
-                data: productImages
+                data: img
             }) 
             Swal.fire(
                 `Product updated!`,
                 `Product has been successfully updated!`,
                 'success'
             );
-            history.push('/');
+        } catch (error) {
+            Swal.fire(
+                `Error!`,
+                `${error}`,
+                'error'
+            );
+        }
+    }
+
+    const uploadImage = async () => {
+        try {
+            const access_token = localStorage.getItem('access_token')
+            let img = new FormData();
+
+            img.append("image", productImages);
+
+            console.log(img)
+            
+            await axios({
+                method: 'POST',
+                url: `${URL}/productimages/upload/${id}`,
+                headers: {
+                    access_token,
+                    "Content-Type": "multipart/form-data"
+                },
+                data: img
+            }) 
+            Swal.fire(
+                `Product updated!`,
+                `Product has been successfully updated!`,
+                'success'
+            );
         } catch (error) {
             Swal.fire(
                 `Error!`,
@@ -139,8 +180,6 @@ function ProductDetails() {
 
     var tempExp = product.expire_date.slice().split('T');
     var exp_date = tempExp[0];
-
-
     return (
         <div>
             <div className="container">
@@ -149,9 +188,9 @@ function ProductDetails() {
                         <div className="card text-white bg-dark space-enter">
                             <img src={
                                 product.Products_Images.map(image => {
-                                    return image.filename
+                                    return `http://localhost:3000/tmp/my-uploads/${image.filename}`
                                 })
-                            } className="card-img-top middle" alt="https://via.placeholder.com/150"/>
+                            } className="card-img-top middle" alt="..."/>
                             <h5 className="card-title middle space-enter text-center">{product.name}</h5>
                             <ul className="list-group list-group-flush">
                                 <li className="list-group-item text-white bg-dark middle">Price: {product.price}</li>
@@ -172,8 +211,10 @@ function ProductDetails() {
                                     <button onClick={() => deleteProductHandler(id)} className="btn btn-sm btn-danger">Delete</button>
                                 </div>
                                 <form>
-                                     <div>
-                                         <input type="file" className="form-control" id="image" name="image" onChange={(e) => setProductImages(e.target.files[0])} accept="image/*"/>
+                                     <div className="prod-img">
+                                         <input type="file" className="form-control " id="image" name="image" 
+                                         onChange={(e) => setProductImages(e.target.files[0])} 
+                                            accept="image/*"/>
                                          <button type="submit" id="btn-upload" className="btn btn-sm btn-primary" onClick={(e) => submitHandler(e)}>Submit</button>
                                     </div>
                                 </form>
@@ -213,9 +254,7 @@ function ProductDetails() {
                         {product.desc}
                     </p>
                 </div>
-
             </div>
-            
         </div>
     )
 }
