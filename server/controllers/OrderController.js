@@ -1,4 +1,4 @@
-const { User , Order } = require('../models')
+const { User , Order, Line_Item } = require('../models')
 
 class OrderController {
     static async showOrders(req, res) {
